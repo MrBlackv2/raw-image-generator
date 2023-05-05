@@ -9,11 +9,11 @@ import { LoadingSpinnerComponent } from './loading-spinner.component';
 @Component({
   selector: 'app-generate-form',
   template: `
-    <div [formGroup]="generateForm" class="flex flex-col gap-2 items-start bg-[#666666ee] p-4 rounded-md w-full">
+    <form [formGroup]="generateForm" class="flex flex-col gap-2 items-start bg-[#24292Edd] p-4 rounded-md w-full" (ngSubmit)="generate.emit()">
       <h3 class="font-bold text-white text-xl mb-2">Generate an Image</h3>
       <textarea class="rounded-lg p-2 w-full resize-none outline-none" formControlName="prompt" placeholder="Write prompt here..."></textarea>
       <div class="flex justify-end w-full">
-        <button class="inline-block underline text-blue-800 font-bold cursor-pointer" (click)="toggleAdvanced()">Advanced</button>
+        <button class="inline-block underline text-blue-400 font-bold cursor-pointer" (click)="toggleAdvanced()">Advanced</button>
       </div>
       <ng-container *ngIf="showAdvanced">
         <textarea class="rounded-lg p-2 w-full resize-none outline-none" formControlName="negativePrompt" placeholder="Write negative prompt here..."></textarea>
@@ -26,14 +26,14 @@ import { LoadingSpinnerComponent } from './loading-spinner.component';
           </mat-select>
         </mat-form-field>
       </ng-container>
-      <button class="bg-red-600 text-white font-bold rounded-md p-2 mt-2 w-full" (click)="generate.emit()">
+      <button class="bg-red-600 text-white font-bold rounded-md p-2 mt-2 w-full" type="submit">
         <div *ngIf="loading; else notLoading" class="flex items-center justify-center">
           <div class="mr-4">Generating...</div>
           <app-loading-spinner />
         </div>
         <ng-template #notLoading>Generate</ng-template>
       </button>
-    </div>
+    </form>
   `,
   imports: [ReactiveFormsModule, CommonModule, MatSelectModule, MatFormFieldModule, LoadingSpinnerComponent],
   standalone: true,

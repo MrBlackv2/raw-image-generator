@@ -9,15 +9,15 @@ export interface ImageDialogData {
 
 @Component({
   template: `
-    <div class="p-2 bg-gray-100 rounded-lg">
-      <div class="flex justify-between items-center mb-2">
+    <div class="p-2 bg-[#24292E] rounded-lg">
+      <div class="flex justify-between items-center mb-2 text-white">
         <h2 class="font-bold text-lg">Your generated image</h2>
         <button mat-icon-button (click)="close()">
           <mat-icon fontIcon="close" />
         </button>
       </div>
       <img [src]="data.image" alt="Generated image" />
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 text-white">
         <a [href]="data.image" download="generated-image.png">
           <button mat-icon-button>
             <mat-icon fontIcon="download" />
