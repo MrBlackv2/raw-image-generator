@@ -8,6 +8,15 @@ import { GenerateFormComponent } from './generate-form.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  styles: [
+    `
+      .home-page {
+        background-image: url('/assets/images/brain.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    `
+  ],
   imports: [CommonModule, ImageListComponent, GenerateFormComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush

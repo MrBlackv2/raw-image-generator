@@ -19,11 +19,12 @@ import { HomeComponent } from './home.component';
 export class HomeContainer {
   private fb = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
+
   images = signal<string[]>([]);
   sdClient = inject(SdClientService);
   generateForm = this.fb.group({
     prompt: this.fb.nonNullable.control('', [Validators.required]),
-    negativePrompt: this.fb.nonNullable.control('', [Validators.required])
+    negativePrompt: this.fb.nonNullable.control('')
   });
 
   generate(): void {

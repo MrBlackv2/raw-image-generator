@@ -1,8 +1,9 @@
-<div>
-  <h1>Home</h1>
-  <app-generate-form
-    [generateForm]="generateForm"
-    (generate)="generate.emit()"
-  />
-  <app-image-list [images]="images" />
+<div class="home-page mx-auto flex justify-center h-screen items-center">
+  <div>
+    <app-generate-form
+      [generateForm]="generateForm"
+      (generate)="generate.emit()"
+    />
+    <app-image-list [images]="images" />
+  </div>
 </div>
