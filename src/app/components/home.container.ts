@@ -47,8 +47,14 @@ export class HomeContainer {
   }
 
   private openDialog(image: string): void {
-    this.dialog.open(ImageDialogComponent, {
+    this.dialog.open<{ repeat: boolean }>(ImageDialogComponent, {
       data: { image }
+    }).closed.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(res => {
+      if (res?.repeat) {
+        this.generate();
+      }
     });
   }
 }
