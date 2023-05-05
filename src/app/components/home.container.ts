@@ -3,39 +3,52 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { SdClientService } from '../services/sd-client.service';
 import { HomeComponent } from './home.component';
+import { ImageDialogComponent } from './image-dialog.component';
 
 @Component({
   template: `
-    <app-home [images]="images" [generateForm]="generateForm" (generate)="generate()" />
+    <app-home [loading]="loading()" [generateForm]="generateForm" (generate)="generate()" />
   `,
-  imports: [CommonModule, HomeComponent],
+  imports: [CommonModule, HomeComponent, DialogModule, OverlayModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeContainer {
   private fb = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
+  private dialog = inject(Dialog);
 
-  images = signal<string[]>([]);
+  loading = signal(false);
   sdClient = inject(SdClientService);
   generateForm = this.fb.group({
-    prompt: this.fb.nonNullable.control('', [Validators.required]),
-    negativePrompt: this.fb.nonNullable.control('')
+    prompt: this.fb.nonNullable.control('Topless women\'s volleyball team', [Validators.required]),
+    negativePrompt: this.fb.nonNullable.control(''),
+    orientation: this.fb.nonNullable.control<'portrait' | 'landscape' | 'square'>('portrait')
   });
 
   generate(): void {
-    if (!this.generateForm.valid) {
+    if (this.loading() || !this.generateForm.valid) {
       return;
     }
 
-    const { prompt, negativePrompt } = this.generateForm.value;
-    this.sdClient.txt2img({ prompt: prompt!, negativePrompt }).pipe(
+    this.loading.set(true);
+    const { prompt, negativePrompt, orientation } = this.generateForm.value;
+    this.sdClient.txt2img({ prompt: prompt!, negativePrompt, options: { promptInclude: true, negativePromptInclude: true, orientation: orientation! } }).pipe(
       map(res => `data:image/png;base64,${res.images[0]}`),
+      finalize(() => this.loading.set(false)),
       takeUntilDestroyed(this.destroyRef)
-    ).subscribe(image => this.images.update(imgs => [image, ...imgs]));
+    ).subscribe(image => this.openDialog(image));
+  }
+
+  private openDialog(image: string): void {
+    this.dialog.open(ImageDialogComponent, {
+      data: { image }
+    });
   }
 }

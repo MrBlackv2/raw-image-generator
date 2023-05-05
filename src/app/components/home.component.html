@@ -1,9 +1,9 @@
-<div class="home-page mx-auto flex justify-center h-screen items-center">
-  <div>
+<div class="home-page absolute inset-0 flex flex-col justify-center">
+  <div class="w-full max-w-screen-xl mx-auto p-4">
     <app-generate-form
+      [loading]="loading"
       [generateForm]="generateForm"
       (generate)="generate.emit()"
     />
-    <app-image-list [images]="images" />
   </div>
 </div>
