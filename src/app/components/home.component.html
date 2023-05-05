@@ -1,0 +1,8 @@
+<div>
+  <h1>Home</h1>
+  <app-generate-form
+    [generateForm]="generateForm"
+    (generate)="generate.emit()"
+  />
+  <app-image-list [images]="images" />
+</div>
