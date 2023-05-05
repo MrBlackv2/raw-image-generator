@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { ImageListComponent } from './image-list.component';
 import { GenerateFormComponent } from './generate-form.component';
 
 @Component({
@@ -17,12 +16,12 @@ import { GenerateFormComponent } from './generate-form.component';
       }
     `
   ],
-  imports: [CommonModule, ImageListComponent, GenerateFormComponent],
+  imports: [CommonModule, GenerateFormComponent],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  @Input({ required: true }) images!: Signal<string[]>;
+  @Input() loading = false;
   @Input({ required: true }) generateForm!: FormGroup;
   @Output() generate = new EventEmitter<void>();
 }
