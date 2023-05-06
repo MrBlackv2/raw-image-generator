@@ -1,0 +1,19 @@
+<div *ngIf="user() as user" class="flex justify-center my-5">
+  <div>
+    <div *ngIf="user.picture">
+      <div class="mb-2 text-center">
+        <img [src]="user.picture" class="rounded-full w-25" />
+      </div>
+    </div>
+    <div>
+      <div class="mb-2">
+        <div>Email: {{user.email}}</div>
+      </div>
+    </div>
+    <div>
+      <div class="mb-2">
+        <div>Nickname: {{user.nickname}}</div>
+      </div>
+    </div>
+  </div>
+</div>

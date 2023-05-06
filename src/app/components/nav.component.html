@@ -5,5 +5,12 @@
     class="h-10 cursor-pointer"
     routerLink="/"
   />
-  <button class="text-white">Search</button>
+  <div class="text-white flex items-center gap-2 px-2">
+    <a routerLink="/profile" routerLinkActive="active">
+      {{ isAuthenticated ? username : "Sign In" }}
+    </a>
+    <a routerLink="" (click)="signOut.emit()" *ngIf="isAuthenticated"
+      >Sign Out</a
+    >
+  </div>
 </nav>

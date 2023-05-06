@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 import { NavComponent } from './components/nav.component';
+import { AuthService } from '@auth0/auth0-angular';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +13,13 @@ import { NavComponent } from './components/nav.component';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'image-generator-ui';
+  private authSvc = inject(AuthService);
+  private user = toSignal(this.authSvc.user$);
+
+  username = computed(() => this.user()?.given_name);
+  isAuthenticated = toSignal(this.authSvc.isAuthenticated$, { initialValue: false });
+
+  signOut() {
+    this.authSvc.logout();
+  }
 }

@@ -1,5 +1,9 @@
 <div class="h-screen flex flex-col">
-  <app-nav />
+  <app-nav
+    [username]="username()"
+    [isAuthenticated]="isAuthenticated()"
+    (signOut)="signOut()"
+  />
   <div class="flex-1 relative">
     <router-outlet></router-outlet>
   </div>
