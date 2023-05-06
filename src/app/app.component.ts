@@ -1,10 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-
-import { NavComponent } from './components/nav.component';
 import { AuthService } from '@auth0/auth0-angular';
 import { toSignal } from '@angular/core/rxjs-interop';
+
+import { NavComponent } from './components/nav.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,10 @@ export class AppComponent {
   private authSvc = inject(AuthService);
   private user = toSignal(this.authSvc.user$);
 
-  username = computed(() => this.user()?.given_name);
+  username = computed(() => {
+    console.log('user', this.user());
+    return this.user()?.given_name;
+  });
   isAuthenticated = toSignal(this.authSvc.isAuthenticated$, { initialValue: false });
 
   signOut() {
