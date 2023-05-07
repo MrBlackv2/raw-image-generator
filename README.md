@@ -1,27 +1,31 @@
-# ImageGeneratorUi
+# Image Generation UI Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+This is a user interface (UI) frontend built with Angular for an image generation service. The service allows users to generate images by inputting text or choosing images from a library.
 
-## Development server
+## Prerequisites
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To build and run the application, you need to have the following software installed on your system:
 
-## Code scaffolding
+- Node.js (version 14.x or higher)
+- Angular CLI (version 16.x or higher)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Getting started
+
+1. Clone the repository: `git clone https://github.com/MrBlackv2/raw-image-ui.git`
+2. Install dependencies: `cd image-generation-ui && npm install`
+3. Start the development server: `npm start`
+4. Open a web browser and navigate to `http://localhost:4200`
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To build the application for production, run the following command:
+`npm run build`
 
-## Running unit tests
+## Packages Used
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This project relies on the following Node.js packages:
 
-## Running end-to-end tests
+- [feather-icons](https://www.npmjs.com/package/feather-icons): a package for providing icons
+- [tailwindcss](https://www.npmjs.com/package/tailwindcss): a package for styling with utility CSS classes
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+These packages are listed in the `dependencies` field of the `package.json` file. To install them, run `npm install`.
